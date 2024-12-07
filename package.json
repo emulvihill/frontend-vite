@@ -1,0 +1,20 @@
+{
+  "name": "frontend-vite",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "~5.6.2",
+    "vite": "^6.0.1"
+  },
+  "dependencies": {
+    "htmx.org": "^2.0.3",
+    "idiomorph": "^0.3.0",
+    "wglmolview": "^0.1.5"
+  }
+}
