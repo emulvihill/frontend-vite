@@ -35,6 +35,10 @@ h1 {
   line-height: 1.1;
 }
 
+sub {
+  font-size: 0.8em;
+}
+
 #app {
   max-width: 1280px;
   margin: 0 auto;
@@ -98,6 +102,32 @@ button:focus-visible {
 .viewport {
   height: 400px;
   width: 400px;
+  flex-grow: 1;
+}
+
+article {
+  width: 300px;
+  height: 300px;
+}
+
+.gallery-viewport {
+  height: 100%;
+  width: 100%;
+}
+
+.gallery.style2 {
+  background-color: #000000;
+  color: #ffffff;
+  display: -moz-flex;
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 15px;
+  row-gap: 15px;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+  background-color: transparent;
 }
 
 .info-container {
@@ -105,5 +135,14 @@ button:focus-visible {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  font-size: large;
+}
+
+.padding-20 {
+  padding: 20px;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
 }

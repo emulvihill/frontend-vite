@@ -30,20 +30,31 @@ const aaConfig: { [aa: string]: Partial<Configuration> } = {
   },
   glu: {},
   gly: {},
-  his: {},
-  ile: {},
+  his: {
+    renderMode: "sticks"
+  },
+  ile: {
+    renderMode: "space_fill"
+  },
   leu: {},
   lys: {},
-  met: {},
+  met: {
+    renderMode: "sticks"
+  },
   phe: {},
-  pro: {},
+  pro: {
+    renderMode: "space_fill"
+  },
   ser: {},
-  thr: {},
+  thr: {
+    renderMode: "sticks"
+  },
   trp: {},
-  tyr: {},
+  tyr: {
+    renderMode: "space_fill"
+  },
   val: {},
 }
-
 
 Object.keys(aaConfig).forEach(async aa => {
 
@@ -51,13 +62,16 @@ Object.keys(aaConfig).forEach(async aa => {
     {
       renderMode: "ball_and_stick",
       selectable: false,
+      rotationVertical: 0,
+      rotationHorizontal: 0,
       domElement: "viewport-" + aa,
       pdbData: await fetch(`/pdb/aa/${aa}.pdb`).then(r => r.text())
     },
     aaConfig[aa]);
 
   config.onInfoUpdated = (info: ContextInfo) => {
-    document.getElementById("info-" + aa)!.innerHTML = formatInfo(config, info);
+    const infoElem = document.getElementById("info-" + aa);
+    infoElem && (infoElem.innerHTML = formatInfo(config, info));
   }
 
   if (document.getElementById("viewport-" + aa)) {
@@ -71,14 +85,20 @@ function formatInfo(aa: Partial<Configuration>, info: ContextInfo): string {
     case "identify":
       return info.message || "";
     case "distance":
-      return `Distance: ${info.distance}`;
+      return info.distance! > 0 ? `Distance: ${truncateDecimals(info.distance!, 3)} Å` : "";
     case "rotation":
-      return `Rotation: ${info.rotationAngle}`;
+      return info.rotationAngle! >= 0 ? `Rotation Angle: ${truncateDecimals(info.rotationAngle!, 3)} °` : "";
     case "torsion":
-      return `Torsion: ${info.torsionAngle}`;
+      return info.torsionAngle! >= 0 ? `Torsion Angle: ${truncateDecimals(info.torsionAngle!, 3)} °` : "";
     default:
       return info.message || ""
   }
-
 }
 
+function truncateDecimals(num: number, digits: number) {
+  const numS = num.toString();
+  const decPos = numS.indexOf('.');
+  const substrLength = decPos == -1 ? numS.length : 1 + decPos + digits;
+  const trimmedResult = numS.substring(0, substrLength);
+  return isNaN(Number(trimmedResult)) ? 0 : parseFloat(trimmedResult);
+}
