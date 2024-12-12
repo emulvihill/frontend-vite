@@ -1,5 +1,4 @@
 import './style.css'
-import 'htmx.org';
 
 import { Configuration, ContextInfo, MolView } from "wglmolview";
 

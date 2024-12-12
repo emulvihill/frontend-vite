@@ -15,6 +15,6 @@
   "dependencies": {
     "htmx.org": "^2.0.3",
     "idiomorph": "^0.3.0",
-    "wglmolview": "^0.1.6"
+    "wglmolview": "^0.1.7"
   }
 }
